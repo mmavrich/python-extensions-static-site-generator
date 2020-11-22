@@ -7,13 +7,14 @@ from pathlib import Path
 def load_module(directory,name):
     sys.path.insert(0,directory)
     importlib.import_module(name)
+    print ("Importing lib ",name)
     sys.path.pop(0)
 
 def load_directory(directory):
-    for path in Path(directory).rglob('*.py'):
+    for path in directory.rglob('*.py'):
         load_module(path.as_posix(),path.stem)
 
 def load_bundled():
-    directory=Path(__file__).parent +"/extensions"
-    print("Loading ",directory)
+    directory=Path(__file__).parent / "extensions"
+    '''print("Loading ",directory)
     load_directory(directory)
